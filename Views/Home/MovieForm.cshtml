@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Enter a Movie";
+}
+@model Movie
+<div class="container">
+    @if (ViewBag.submitAgain)
+    {
+        <h1>Thanks for your submission!</h1>
+        <h1>Enter another movie into the database</h1>
+    }
+    else
+    {
+        <h1>Enter a movie into the database</h1>
+    }
+    <br />
+    <div class="container">
+        <form method="post">
+            <input type="hidden" asp-for="MovieId" />
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" required />
+            <br />
+            <br />
+            <label asp-for="CategoryId">Category</label>
+            <select asp-for="CategoryId">
+                @foreach(CategoryModel cat in ViewBag.Categories)
+                {
+                    <option value="@cat.CategoryId">@cat.Category</option>
+                }
+            </select>
+            <br />
+            <br />
+            <label asp-for="Year">Year</label>
+            <input asp-for="Year" min="1888" required />
+            <br />
+            <br />
+            <label asp-for="Director">Director(s)</label>
+            <input asp-for="Director" />
+            <br />
+            <br />
+            <label asp-for="Rating">Rating</label>
+            <select asp-for="Rating">
+                @foreach (string rat in ViewBag.Ratings)
+                {
+                    <option value="@rat">@rat</option>
+                }
+            </select>
+            <br />
+            <br />
+            <label asp-for="Edited">Edited</label>
+            <select asp-for="Edited" required >
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <br />
+            <br />
+            <label asp-for="LentTo">Lent To</label>
+            <input asp-for="LentTo" />
+            <br />
+            <br />
+            <label asp-for="CopiedToPlex">CopiedToPlex</label>
+            <select asp-for="CopiedToPlex" required >
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <br />
+            <br />
+            <label asp-for="Notes">Notes</label>
+            <input asp-for="Notes" maxlength="25" />
+            <br />
+            <br />
+            @if (ViewBag.isUpdating)
+            {
+                <button type="submit" class="btn btn-info">Update Movie</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-info">Add Movie</button>
+            }
+            <div asp-validation-summary="All"></div>
+        </form>
+    </div>
+</div>
